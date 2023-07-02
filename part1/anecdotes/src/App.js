@@ -18,12 +18,26 @@ const App = () => {
     'The only way to go fast, is to go well.',
   ];
 
-  const initialVotes = Array(anecdotes.length).fill(0);
-
   const [selected, setSelected] = useState(0);
-  const [votes, setVotes] = useState(initialVotes);
+  const [mostVotes, setMostVotes] = useState(0);
+  const [votes, setVotes] = useState(anecdotes.map((_) => 0));
 
-  const mostVotedIdx = votes.indexOf(Math.max(...votes));
+  const pickRandom = () => {
+    while (true) {
+      const possibleNext = Math.floor(Math.random() * anecdotes.length);
+      if (possibleNext !== selected) return possibleNext;
+    }
+  };
+
+  const voteSelected = () => {
+    const newVotes = [...votes];
+    newVotes[selected] += 1;
+    setVotes(newVotes);
+
+    if (newVotes[selected] > votes[mostVotes]) {
+      setMostVotes(selected);
+    }
+  };
 
   return (
     <>
@@ -31,19 +45,12 @@ const App = () => {
       {anecdotes[selected]}
       <ShowVotes number={votes[selected]} />
       <div>
-        <Button
-          text="vote"
-          handleClick={() => {
-            const copyOfVotes = [...votes];
-            copyOfVotes[selected] += 1;
-            setVotes(copyOfVotes);
-          }}
-        />
-        <Button text="next anecdote" handleClick={() => setSelected(Math.floor(Math.random() * anecdotes.length))} />
+        <Button text="vote" handleClick={voteSelected} />
+        <Button text="next anecdote" handleClick={() => setSelected(pickRandom())} />
       </div>
       <Title text="Anecdote with most votes" />
-      {anecdotes[mostVotedIdx]}
-      <ShowVotes number={votes[mostVotedIdx]} />
+      {anecdotes[mostVotes]}
+      <ShowVotes number={votes[mostVotes]} />
     </>
   );
 };
