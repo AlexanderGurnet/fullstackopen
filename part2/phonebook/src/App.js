@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
+import personService from './services/persons';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
@@ -13,9 +13,8 @@ const App = () => {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons').then((res) => {
-      const persons = res.data;
-      setPersons(persons);
+    personService.getAll().then((initialPersons) => {
+      setPersons(initialPersons);
     });
   }, []);
 
@@ -30,15 +29,31 @@ const App = () => {
       number: newNumber,
     };
 
-    const isPersonExist = persons.find((person) => person.name === newPerson.name);
+    const alreadyExistingPerson = persons.find((person) => person.name === newPerson.name);
 
-    if (isPersonExist) {
-      alert(`${newName} is already added to phonebook`);
+    if (alreadyExistingPerson) {
+      if (
+        window.confirm(
+          `${alreadyExistingPerson.name} is already added to phonebook, replace the old number with a new one?`
+        )
+      ) {
+        personService.update(alreadyExistingPerson.id, newPerson).then((updatedPerson) => {
+          setPersons(persons.map((person) => (person.id !== alreadyExistingPerson.id ? person : updatedPerson)));
+        });
+      }
     } else {
-      axios.post('http://localhost:3001/persons', newPerson).then((res) => {
-        setPersons(persons.concat(res.data));
+      personService.create(newPerson).then((newlyCreatedPerson) => {
+        setPersons(persons.concat(newlyCreatedPerson));
         setNewName('');
         setNewNumber('');
+      });
+    }
+  };
+
+  const handlePersonDeletion = (person) => {
+    if (window.confirm(`Delete ${person.name}?`)) {
+      personService.deleteById(person.id).then(() => {
+        setPersons(persons.filter((p) => p.id !== person.id));
       });
     }
   };
@@ -68,7 +83,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons persons={filteredPersons} />
+      <Persons persons={filteredPersons} handlePersonDeletion={handlePersonDeletion} />
     </>
   );
 };
