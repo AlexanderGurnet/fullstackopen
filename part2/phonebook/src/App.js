@@ -28,7 +28,6 @@ const App = () => {
     const newPerson = {
       name: newName,
       number: newNumber,
-      id: persons.length + 1,
     };
 
     const isPersonExist = persons.find((person) => person.name === newPerson.name);
@@ -36,9 +35,11 @@ const App = () => {
     if (isPersonExist) {
       alert(`${newName} is already added to phonebook`);
     } else {
-      setPersons(persons.concat(newPerson));
-      setNewName('');
-      setNewNumber('');
+      axios.post('http://localhost:3001/persons', newPerson).then((res) => {
+        setPersons(persons.concat(res.data));
+        setNewName('');
+        setNewNumber('');
+      });
     }
   };
 
