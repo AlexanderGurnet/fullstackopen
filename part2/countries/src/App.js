@@ -1,25 +1,18 @@
 import { useState, useEffect } from 'react';
 
+import FindCountries from './components/FindCountries';
+import Countries from './components/Countries';
+
 import countriesService from './services/countries';
 
-const FindCountries = ({ value, handleOnChange }) => {
-  return (
-    <form>
-      <div>
-        Find countries: <input value={value} onChange={handleOnChange} />
-      </div>
-    </form>
-  );
-};
-
 const App = () => {
-  const [SearchingCountry, setSearchingCountry] = useState('');
-  const [countries, setCountries] = useState([]);
+  const [searchingCountry, setSearchingCountry] = useState('');
+  const [countries, setCountries] = useState(null);
 
   let filteredCountries =
-    SearchingCountry === ''
+    searchingCountry === ''
       ? countries
-      : countries.filter((country) => country.name.common.toLowerCase().includes(SearchingCountry.toLowerCase()));
+      : countries?.filter((country) => country.name.common.toLowerCase().includes(searchingCountry.toLowerCase()));
 
   useEffect(() => {
     countriesService.getAll().then((allCountries) => setCountries(allCountries));
@@ -31,12 +24,8 @@ const App = () => {
 
   return (
     <>
-      <FindCountries value={SearchingCountry} handleOnChange={handleOnCountryChange} />
-      <div>
-        {filteredCountries.map((country) => (
-          <div>{country.name.common}</div>
-        ))}
-      </div>
+      <FindCountries value={searchingCountry} handleOnChange={handleOnCountryChange} />
+      <Countries countries={filteredCountries} searchingCountry={searchingCountry} />
     </>
   );
 };
