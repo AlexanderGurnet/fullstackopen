@@ -4,9 +4,9 @@ const CountryView = ({ country }) => {
   return (
     <section>
       <h2>{country.name.common}</h2>
-      <div>capital {country.capital ? country.capital[0] : 'none'}</div>
-      <div>area {country.area}</div>
-      <h3>languages:</h3>
+      <div>Capital {country.capital ? country.capital[0] : 'none'}</div>
+      <div>Area {country.area}</div>
+      <h3>Languages:</h3>
       <ul>
         {Object.values(country.languages).map((language) => (
           <li key={language}>{language}</li>
