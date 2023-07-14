@@ -110,7 +110,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Notification message={notification} isError={isError} />
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
-      <h2>Add a new</h2>
+      <h2>Add a new person</h2>
       <PersonForm
         newName={newName}
         newNumber={newNumber}
