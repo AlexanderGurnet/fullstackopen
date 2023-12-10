@@ -29,7 +29,7 @@
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
-    server-->>browser: [{ "content": "A newly added note", "date": "2023-9-27" }, ... ]
+    server-->>browser: [{ "content": "A newly added note,", "date": "2023-9-27" }, ... ]
     deactivate server
 
     Note right of browser: The browser executes the callback function that renders the notes
