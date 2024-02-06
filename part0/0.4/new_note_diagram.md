@@ -8,7 +8,7 @@
     activate server
     server-->>browser: redirect
     deactivate server
-    Note right of browser: the browser reloads the page
+    Note right of browser: the browser reloads the page.
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
