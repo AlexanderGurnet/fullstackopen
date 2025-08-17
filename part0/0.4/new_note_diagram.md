@@ -1,12 +1,12 @@
 
 ```mermaid
   sequenceDiagram
-    participant browse
+    participant browser
     participant server
 
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
-    server-->>browse
+    server-->>browser
     deactivate server
     Note right of browser: the browser reloads the page
 
@@ -34,6 +34,7 @@
 
     Note right of browser: The browser executes the callback function that renders the notes
 ```
+
 
 
 
