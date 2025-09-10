@@ -5,7 +5,7 @@
     participant serve
 
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
-    activate serve
+    activate serv
     server--
     deactivate serve
     Note right of browser: the browser reloads the page
@@ -34,6 +34,7 @@
 
     Note right of browser: The browser executes the callback function that renders the notes
 ```
+
 
 
 
