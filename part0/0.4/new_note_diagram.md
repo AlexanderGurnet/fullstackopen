@@ -6,7 +6,7 @@
 
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate serv
-    server--
+    server
     deactivate serve
     Note right of browser: the browser reloads the page
 
