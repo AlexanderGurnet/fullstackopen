@@ -12,7 +12,7 @@
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
-    server-->>browser: HTML document
+    server-->>browser: HTML documen
     deactivate server
     
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
@@ -34,6 +34,7 @@
 
     Note right of browser: The browser executes the callback function that renders the notes
 ```
+
 
 
 
