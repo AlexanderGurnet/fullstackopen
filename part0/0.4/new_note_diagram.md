@@ -13,7 +13,7 @@
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
     server-->>browser: HTML documen
-    deactivate server
+    deactivate serv
     
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
