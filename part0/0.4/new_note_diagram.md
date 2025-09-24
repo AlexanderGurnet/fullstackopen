@@ -7,7 +7,7 @@
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate 
     serv
-    deactivate serve
+    deactivate 
     Note right of browser: the browser reloads the page
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
