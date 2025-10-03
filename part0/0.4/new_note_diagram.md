@@ -5,7 +5,7 @@
     participant serv
 
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
-    activate 
+    activat
     
     deactivate 
     Note right of browser: the browser reloads the page
